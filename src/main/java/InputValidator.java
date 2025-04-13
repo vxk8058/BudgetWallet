@@ -11,7 +11,7 @@ public class InputValidator {
         return category != null && !category.isEmpty(); // Non-empty category
     }
 
-    public boolean validateDate(String date) {
+    public static boolean validateDate(String date) {
         if (date == null || date.isEmpty()) return false;
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");

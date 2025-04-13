@@ -15,7 +15,7 @@ public class IncomeEntry {
 
         InputValidator validator = new InputValidator();
         if (!validator.validateDate(date)) {
-            throw new IllegalArgumentException("Invalid date format: " + date + ". Expected MM-dd-yyyy");
+            throw new IllegalArgumentException("Invalid date format: " + date + ". Expected MM-DD-YYYY");
         }
 
         this.amount = amount;

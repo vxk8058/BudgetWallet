@@ -80,7 +80,7 @@ class EntryControllerTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
                 new IncomeEntry(300, "Commission", "April 2, 2025")
         );
-        assertEquals("Invalid date format: April 2, 2025. Expected MM-dd-yyyy", exception.getMessage());
+        assertEquals("Invalid date format: April 2, 2025. Expected MM-DD-YYYY", exception.getMessage());
     }
 
     @Test
@@ -92,6 +92,60 @@ class EntryControllerTest {
 
         assertEquals(2, user.getIncomeEntries().size());
         assertEquals(2, user.getExpenseEntries().size());
+    }
+
+    @Test
+    public void testAddInvestmentEntry() {
+        InvestmentEntry investment = new InvestmentEntry("Tesla", "Stocks", 10000);
+        user.addInvestmentEntry(investment);
+        assertEquals(1, user.getInvestmentEntries().size());
+    }
+
+    @Test
+    public void testDeleteInvestmentEntry() {
+        InvestmentEntry investment = new InvestmentEntry("Tesla", "Stocks", 10000);
+        user.addInvestmentEntry(investment);
+        user.deleteInvestmentEntry(investment);
+        assertEquals(0, user.getInvestmentEntries().size());
+    }
+
+    @Test
+    public void testInvalidInvestmentCategory() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new InvestmentEntry("Dogecoin", "Crypto", 10000)
+        );
+        assertEquals("Invalid investment category: Crypto", exception.getMessage());
+    }
+
+    @Test
+    public void testAddSavingsEntry() {
+        SavingsEntry savings = new SavingsEntry(3000, "Emergency Funds", "04-12-2025");
+        user.addSavingsEntry(savings);
+        assertEquals(1, user.getSavingsEntries().size());
+    }
+
+    @Test
+    public void testDeleteSavingsEntry() {
+        SavingsEntry savings = new SavingsEntry(3000, "Emergency Funds", "04-12-2025");
+        user.addSavingsEntry(savings);
+        user.deleteSavingsEntry(savings);
+        assertEquals(0, user.getSavingsEntries().size());
+    }
+
+    @Test
+    public void testInvalidSavingsCategory() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new SavingsEntry(4000, "Wedding", "04-12-2025")
+        );
+        assertEquals("Invalid savings category: Wedding", exception.getMessage());
+    }
+
+    @Test
+    public void testInvalidSavingsDate() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new SavingsEntry(4000, "Car", "April 13, 2025")
+        );
+        assertEquals("Invalid date format: April 13, 2025. Expected MM-DD-YYYY", exception.getMessage());
     }
 
 }

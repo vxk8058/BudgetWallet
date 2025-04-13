@@ -1,16 +1,16 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class ExpenseEntry {
-    public static final List<String> expense_categories = Arrays.asList("Groceries", "Food", "Rent", "Travel", "Gas", "Healthcare", "Insurance", "Miscellaneous");
+public class SavingsEntry {
+    public static final List<String> savings_categories = Arrays.asList("Emergency Funds", "House", "Car", "Vacation", "Education");
+
     private int amount;
     private String category;
     private String date;
 
-
-    public ExpenseEntry(int amount, String category, String date) {
-        if (!expense_categories.contains(category)) {
-            throw new IllegalArgumentException("Invalid expense category: " + category);
+    public SavingsEntry(int amount, String category, String date) {
+        if (!savings_categories.contains(category)) {
+            throw new IllegalArgumentException("Invalid savings category: " + category);
         }
 
         InputValidator validator = new InputValidator();
@@ -27,23 +27,23 @@ public class ExpenseEntry {
         return amount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        if (!expense_categories.contains(category)) {
-            throw new IllegalArgumentException("Invalid expense category: " + category);
-        }
-        this.category = category;
-    }
-
     public String getDate() {
         return date;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setCategory(String category) {
+        if (!savings_categories.contains(category)) {
+            throw new IllegalArgumentException("Invalid savings category: " + category);
+        }
+        this.category = category;
     }
 
     public void setDate(String date) {
