@@ -9,7 +9,7 @@ class LoginTest {
 
     @Test
     public void TestUC1() {
-        assertEquals(true, db.validUser(emails[1], passwords[1]));
+        assertEquals(false, db.validUser(emails[0], passwords[0]));
     }
 
     @Test
