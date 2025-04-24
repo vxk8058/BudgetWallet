@@ -21,7 +21,7 @@ function App() {
         <Route path="/home" element={<IncomePage />} />
         <Route path="/Manage Financials" element={<IncomePage />} />
         <Route path="/Reports" element={<UnderConstructionPage />} />
-        <Route path="/Financial Goals" element={<GoalsPage />} />
+        <Route path="/Financial Goals" element={<FinancialGoalsPage />} />
         <Route path="/Account" element={<AccountPage />} />
         <Route path="/Logout" element={<UnderConstructionPage />} />
         <Route path="/Manage Income Entries" element={<IncomePage />} />
