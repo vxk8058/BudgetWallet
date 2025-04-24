@@ -88,12 +88,11 @@ public class DBMgr {
         }
     }
 
-    public boolean validUser(String email) {
-        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
-
+    public boolean validUser(String email, String password) {
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ? AND password = ?";
         try (var pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, email);
-
+            pstmt.setString(2, password);
             var rs = pstmt.executeQuery();
             if (rs.next()) {
                 int count = rs.getInt(1);
@@ -104,7 +103,6 @@ public class DBMgr {
             // control flow only reaches here if count < 1 or table is empty
             // meaning user does not exist
             return false;
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
