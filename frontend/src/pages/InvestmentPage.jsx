@@ -10,7 +10,6 @@ export default function InvestmentPage() {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    /*
       // Fetch investment entries from Java backend on component mount
       fetch('http://localhost:8080/api/investments')
         .then(response => {
@@ -26,7 +25,6 @@ export default function InvestmentPage() {
         .catch(error => {
           console.error('Error loading investment entries:', error);
         });
-    */
   }, []);
 
   const handleSubmit = (e) => {
@@ -38,7 +36,6 @@ export default function InvestmentPage() {
       setCategory('');
       setAmount('');
 
-      /*
       fetch('http://localhost:8080/api/investments', {
         method: 'POST',
         headers: {
@@ -58,8 +55,6 @@ export default function InvestmentPage() {
         .catch((error) => {
           console.error('Error saving investment:', error);
         });
-      */
-
     }
   };
 
@@ -68,23 +63,21 @@ export default function InvestmentPage() {
     const entryToDelete = entries[indexToRemove];
   
     // Remove from frontend state
-    setEntries(entries.filter((_, index) => index !== indexToRemove));
-  
-    /*
-      // Replace `entryToDelete.id` with the actual ID from the database once available
-      fetch(`http://localhost:8080/api/investments/${entryToDelete.id}`, {
-        method: 'DELETE',
+    //setEntries(entries.filter((_, index) => index !== indexToRemove));
+
+    fetch(`http://localhost:8080/api/investments/${entryToDelete.id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete investment entry');
+        }
+        console.log('investment entry deleted');
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to delete investment entry');
-          }
-          console.log('investment entry deleted');
-        })
-        .catch((error) => {
-          console.error('Error deleting investment entry:', error);
-        });
-    */
+      .catch((error) => {
+        console.error('Error deleting investment entry:', error);
+      });
+
   };
   
   return (

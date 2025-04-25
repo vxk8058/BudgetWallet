@@ -10,23 +10,23 @@ export default function ExpensePage() {
   const [entries, setEntries] = useState([]);
   
   useEffect(() => {
-    /*
-      // Fetch expense entries from Java backend on component mount
-      fetch('http://localhost:8080/api/expense')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch expense entries');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Update local state with entries from backend
-          setEntries(data);
-        })
-        .catch(error => {
-          console.error('Error loading expense entries:', error);
-        });
-    */
+
+    // Fetch expense entries from Java backend on component mount
+    fetch('http://localhost:8080/api/expense')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch expense entries');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Update local state with entries from backend
+        setEntries(data);
+      })
+      .catch(error => {
+        console.error('Error loading expense entries:', error);
+      });
+
   }, []);
 
   const handleSubmit = (e) => {
@@ -38,7 +38,6 @@ export default function ExpensePage() {
       setCategory('');
       setDate('');
 
-      /*
       fetch('http://localhost:8080/api/expense', {
         method: 'POST',
         headers: {
@@ -58,7 +57,7 @@ export default function ExpensePage() {
         .catch((error) => {
           console.error('Error saving expense:', error);
         });
-      */
+
     }
   };
   
@@ -66,25 +65,22 @@ export default function ExpensePage() {
     const entryToDelete = entries[indexToRemove];
   
     // Remove from frontend state
-    setEntries(entries.filter((_, index) => index !== indexToRemove));
-  
-    /*
-      // Replace `entryToDelete.id` with the actual ID from the database once available
-      fetch(`http://localhost:8080/api/expense/${entryToDelete.id}`, {
-        method: 'DELETE',
+    //setEntries(entries.filter((_, index) => index !== indexToRemove));
+
+    fetch(`http://localhost:8080/api/expense/${entryToDelete.id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete expense entry');
+        }
+        console.log('Expense entry deleted');
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to delete expense entry');
-          }
-          console.log('Expense entry deleted');
-        })
-        .catch((error) => {
-          console.error('Error deleting expense entry:', error);
-        });
-    */
+      .catch((error) => {
+        console.error('Error deleting expense entry:', error);
+      });
+
   };
-  
   
   return (
     <div style={{ backgroundColor: 'rgba(138,147,180,1)', minHeight: '100vh', position: 'relative' }}>

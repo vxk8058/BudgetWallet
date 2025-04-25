@@ -10,23 +10,21 @@ export default function SavingsPage() {
   const [entries, setEntries] = useState([]);
   
   useEffect(() => {
-    /*
-      // Fetch savings entries from Java backend on component mount
-      fetch('http://localhost:8080/api/savings')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch savings entries');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Update local state with entries from backend
-          setEntries(data);
-        })
-        .catch(error => {
-          console.error('Error loading savings entries:', error);
-        });
-    */
+    // Fetch savings entries from Java backend on component mount
+    fetch('http://localhost:8080/api/savings')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch savings entries');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Update local state with entries from backend
+      setEntries(data);
+    })
+    .catch(error => {
+      console.error('Error loading savings entries:', error);
+    });
   }, []);
 
   const handleSubmit = (e) => {
@@ -38,7 +36,6 @@ export default function SavingsPage() {
       setCategory('');
       setDate('');
 
-      /*
       fetch('http://localhost:8080/api/savings', {
         method: 'POST',
         headers: {
@@ -58,7 +55,6 @@ export default function SavingsPage() {
         .catch((error) => {
           console.error('Error saving savings:', error);
         });
-      */
     }
   };
   
@@ -66,23 +62,21 @@ export default function SavingsPage() {
     const entryToDelete = entries[indexToRemove];
   
     // Remove from frontend state
-    setEntries(entries.filter((_, index) => index !== indexToRemove));
-  
-    /*
-      // Replace `entryToDelete.id` with the actual ID from the database once available
-      fetch(`http://localhost:8080/api/savings/${entryToDelete.id}`, {
-        method: 'DELETE',
+    //setEntries(entries.filter((_, index) => index !== indexToRemove));
+
+    fetch(`http://localhost:8080/api/savings/${entryToDelete.id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete savings entry');
+        }
+        console.log('Savings entry deleted');
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to delete savings entry');
-          }
-          console.log('Savings entry deleted');
-        })
-        .catch((error) => {
-          console.error('Error deleting savings entry:', error);
-        });
-    */
+      .catch((error) => {
+        console.error('Error deleting savings entry:', error);
+      });
+
   };
   
   

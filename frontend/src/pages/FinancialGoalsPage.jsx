@@ -7,25 +7,22 @@ export default function GoalsPage() {
   const [amount, setAmount] = useState('');
   const [timeFrame, setTimeFrame] = useState('');
   const [entries, setEntries] = useState([]);
-  
   useEffect(() => {
-    /*
-      // Fetch goal entries from Java backend on component mount
-      fetch('http://localhost:8080/api/goal')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch goal entries');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Update local state with entries from backend
-          setEntries(data);
-        })
-        .catch(error => {
-          console.error('Error loading goal entries:', error);
-        });
-    */
+    // Fetch goal entries from Java backend on component mount
+    fetch('http://localhost:8080/api/goal')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch goal entries');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Update local state with entries from backend
+        setEntries(data);
+      })
+      .catch(error => {
+        console.error('Error loading goal entries:', error);
+      });
   }, []);
 
   const handleSubmit = (e) => {
@@ -36,7 +33,6 @@ export default function GoalsPage() {
       setAmount('');
       setTimeFrame('');
 
-      /*
       fetch('http://localhost:8080/api/goal', {
         method: 'POST',
         headers: {
@@ -56,7 +52,6 @@ export default function GoalsPage() {
         .catch((error) => {
           console.error('Error saving goal:', error);
         });
-      */
     }
   };
   
@@ -64,10 +59,8 @@ export default function GoalsPage() {
     const entryToDelete = entries[indexToRemove];
   
     // Remove from frontend state
-    setEntries(entries.filter((_, index) => index !== indexToRemove));
-  
-    /*
-      // Replace `entryToDelete.id` with the actual ID from the database once available
+    //setEntries(entries.filter((_, index) => index !== indexToRemove));
+
       fetch(`http://localhost:8080/api/goal/${entryToDelete.id}`, {
         method: 'DELETE',
       })
@@ -80,7 +73,6 @@ export default function GoalsPage() {
         .catch((error) => {
           console.error('Error deleting goal entry:', error);
         });
-    */
   };
   
   

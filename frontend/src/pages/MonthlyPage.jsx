@@ -7,23 +7,21 @@ import myImage from '../images/v97_24.png';
 export default function MonthlyPage() {
 
     useEffect(() => {
-        /*
           // Fetch goal entries from Java backend on component mount
           fetch('http://localhost:8080/api/goal')
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Failed to fetch goal entries');
-              }
-              return response.json();
-            })
-            .then(data => {
-              // Update local state with entries from backend
-              setEntries(data);
-            })
-            .catch(error => {
-              console.error('Error loading goal entries:', error);
-            });
-        */
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Failed to fetch goal entries');
+                }
+                return response.json();
+              })
+              .then(data => {
+                  // Update local state with entries from backend
+                  setEntries(data);
+              })
+              .catch(error => {
+                  console.error('Error loading goal entries:', error);
+              });
     }, []);
 
     return (
@@ -187,20 +185,21 @@ export default function MonthlyPage() {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <PieChart
-                        series={[
-                            {
-                                data: [
-                                    { id: 0, value: 10, label: 'Income' },
-                                    { id: 1, value: 15, label: 'Expense' },
-                                    { id: 2, value: 20, label: 'Savings' },
-                                    { id: 4, value: 20, label: 'Investment' },
-                                ],
-                            },
-                        ]}
-                        width={200}
-                        height={200}
-                    />
+                    {/*for demo*/}
+                    {/*<PieChart*/}
+                    {/*    series={[*/}
+                    {/*        {*/}
+                    {/*            data: [*/}
+                    {/*                { id: 0, value: 10, label: 'Income' },*/}
+                    {/*                { id: 1, value: 15, label: 'Expense' },*/}
+                    {/*                { id: 2, value: 20, label: 'Savings' },*/}
+                    {/*                { id: 4, value: 20, label: 'Investment' },*/}
+                    {/*            ],*/}
+                    {/*        },*/}
+                    {/*    ]}*/}
+                    {/*    width={200}*/}
+                    {/*    height={200}*/}
+                    {/*/>*/}
                 </div>
             </div>
         </div>

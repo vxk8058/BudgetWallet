@@ -8,25 +8,22 @@ export default function IncomePage() {
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
   const [entries, setEntries] = useState([]);
-  
   useEffect(() => {
-    /*
-      // Fetch income entries from Java backend on component mount
-      fetch('http://localhost:8080/api/income')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch income entries');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Update local state with entries from backend
-          setEntries(data);
-        })
-        .catch(error => {
-          console.error('Error loading income entries:', error);
-        });
-    */
+    // Fetch income entries from Java backend on component mount
+    fetch('http://localhost:8080/api/income')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch income entries');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Update local state with entries from backend
+        setEntries(data);
+      })
+      .catch(error => {
+        console.error('Error loading income entries:', error);
+      });
   }, []);
 
   const handleSubmit = (e) => {
@@ -38,7 +35,6 @@ export default function IncomePage() {
       setCategory('');
       setDate('');
 
-      /*
       fetch('http://localhost:8080/api/income', {
         method: 'POST',
         headers: {
@@ -58,7 +54,6 @@ export default function IncomePage() {
         .catch((error) => {
           console.error('Error saving income:', error);
         });
-      */
     }
   };
   
@@ -66,23 +61,20 @@ export default function IncomePage() {
     const entryToDelete = entries[indexToRemove];
   
     // Remove from frontend state
-    setEntries(entries.filter((_, index) => index !== indexToRemove));
-  
-    /*
-      // Replace `entryToDelete.id` with the actual ID from the database once available
-      fetch(`http://localhost:8080/api/income/${entryToDelete.id}`, {
-        method: 'DELETE',
+    //setEntries(entries.filter((_, index) => index !== indexToRemove));
+
+    fetch(`http://localhost:8080/api/income/${entryToDelete.id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete income entry');
+        }
+        console.log('Income entry deleted');
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to delete income entry');
-          }
-          console.log('Income entry deleted');
-        })
-        .catch((error) => {
-          console.error('Error deleting income entry:', error);
-        });
-    */
+      .catch((error) => {
+        console.error('Error deleting income entry:', error);
+      });
   };
   
   
