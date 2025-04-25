@@ -1,20 +1,26 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";//react hook
 import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom'; // Import this for navigation
 
-//these hold empty strings that get filled when user enters information
 export default function Login() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(""); // Add state for error messages
+    const navigate = useNavigate(); // Initialize the navigate function
 
     //when login button is clicked send the request to the backend sever to verify
     const submitLogin = async () => {
+        setError(""); // Clear any previous errors
         const url = "http://localhost:8080/login";
-        const loginInfo = { "email": email, "password": password }
-        console.log(loginInfo)
+        const loginInfo = { "email": email, "password": password };
+        console.log(loginInfo);
         try {
             const response = await fetch(url, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json" // Add this header for JSON data
+                },
                 body: JSON.stringify(loginInfo),
             });
 
@@ -24,39 +30,51 @@ export default function Login() {
 
             const json = await response.json();
             console.log(json);
-            //if login successfull got redirect to home page
+
+            // Handle successful login
+            if (json.success || response.ok) {
+                // You might want to store the token or user info in localStorage or context
+                if (json.token) {
+                    localStorage.setItem('token', json.token);
+                }
+                // Redirect to home page
+                navigate('/home'); // Add this line to redirect
+            } else {
+                // Handle unsuccessful login with proper error message
+                setError(json.message || "Login failed");
+            }
         } catch (error) {
             console.error(error.message);
+            setError("Login failed. Please check your credentials and try again.");
         }
     }
 
     return (
-
-        //full page style container
         <Box sx={{ height: '1024px', width: '1440px', margin: 'auto', display: 'flex', gap: 2, flexDirection: 'column', justifyContent: 'center', backgroundColor: "#8A93B4", }}>
-
             <Box sx={{ width: "733px", height: "743px", backgroundColor: "#F5F4F4", borderRadius: "30px", margin: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 5 }}>
                 <Typography sx={{ fontFamily: "Kaisei Decol", color: "#000000", fontSize: "48px" }}>
                     Login
                 </Typography>
 
+                {/* Display error message if there is one */}
+                {error && (
+                    <Typography sx={{ fontFamily: "Kaisei Decol", color: "red", fontSize: "16px" }}>
+                        {error}
+                    </Typography>
+                )}
 
                 <TextField
                     id="email"
                     label="Email"
                     variant="outlined"
-
                     sx={{
                         backgroundColor: "#8A93B4", borderRadius: "30px",
                         width: "492px",
                         height: "87px",
-
                         fontSize: "48px",
                         fontFamily: "Kaisei Decol",
                         color: "#DFDADA",
                         textTransform: "none",
-
-                        //overrides the mui type box with custom type box
                         '& .MuiInputBase-root': {
                             borderRadius: "30px", // Rounded edges for the input itself
                         },
@@ -71,9 +89,7 @@ export default function Login() {
                             padding: "18px", // Adjust padding for input text
                         }
                     }}
-
-
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange={(event) => {
                         setEmail(event.target.value);
                     }}
                 />
@@ -82,13 +98,10 @@ export default function Login() {
                     label="Password"
                     type="password"
                     autoComplete="current-password"
-
-
                     sx={{
                         backgroundColor: "#8A93B4", borderRadius: "30px",
                         width: "492px",
                         height: "87px",
-
                         fontSize: "48px",
                         fontFamily: "Kaisei Decol",
                         color: "#DFDADA",
@@ -107,9 +120,7 @@ export default function Login() {
                             padding: "18px", // Adjust padding for input text
                         }
                     }}
-
-
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange={(event) => {
                         setPassword(event.target.value);
                     }}
                 />
@@ -117,7 +128,8 @@ export default function Login() {
                 <Link href="/reset">
                     <Typography sx={{ fontFamily: "Kaisei Decol", color: "#969696", fontSize: "24px" }}>
                         Forgot Password?
-                    </Typography></Link>
+                    </Typography>
+                </Link>
                 <Button
                     variant="contained"
                     sx={{
@@ -133,16 +145,14 @@ export default function Login() {
                     Sign In
                 </Button>
 
-
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "center", }}>
-                    <Typography sx={{ fontFamily: "Kaisei Decol", color: "#969696", fontSize: "24px" }}>
-                        Create An Account
-                    </Typography>
+                    <Link href="/register">
+                        <Typography sx={{ fontFamily: "Kaisei Decol", color: "#969696", fontSize: "24px" }}>
+                            Create An Account
+                        </Typography>
+                    </Link>
                 </Box>
-
-
             </Box>
         </Box>
-    )
-
+    );
 }

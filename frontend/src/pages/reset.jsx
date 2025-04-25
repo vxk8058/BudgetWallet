@@ -18,7 +18,7 @@ export default function Reset() {
             });
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
-            } 3
+            }
 
             const json = await response.json();
             console.log(json);
@@ -67,7 +67,7 @@ export default function Reset() {
                     }}
 
 
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange={(event) => {
                         setEmail(event.target.value);
                     }}
                 />
