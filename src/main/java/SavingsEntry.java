@@ -18,6 +18,10 @@ public class SavingsEntry {
             throw new IllegalArgumentException("Invalid date format: " + date + ". Expected MM-DD-YYYY");
         }
 
+        if (amount < 0) {
+            throw new IllegalArgumentException("Savings amount must be positive");
+        }
+
         this.amount = amount;
         this.category = category;
         this.date = date;

@@ -9,8 +9,16 @@ public class InvestmentEntry {
     private int currentValue;
 
     public InvestmentEntry(String name, String category, int currentValue) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Investment name cannot be empty");
+        }
+
         if (!investment_categories.contains(category)) {
             throw new IllegalArgumentException("Invalid investment category: " + category);
+        }
+
+        if (currentValue < 0) {
+            throw new IllegalArgumentException("Investment value must be positive");
         }
 
         this.name = name;
