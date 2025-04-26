@@ -5,7 +5,7 @@ import myImage from '../images/v97_24.png';
 
 // Main MonthlyPage Component
 export default function MonthlyPage() {
-
+    const [entries, setEntries] = useState([]);
     useEffect(() => {
           // Fetch goal entries from Java backend on component mount
           fetch('http://localhost:8080/api/goal')

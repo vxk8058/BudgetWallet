@@ -1,8 +1,10 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 //these hold empty strings that get filled when user enters information
 export default function Reset() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -14,6 +16,9 @@ export default function Reset() {
         try {
             const response = await fetch(url, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify(loginInfo),
             });
             if (!response.ok) {
@@ -22,7 +27,8 @@ export default function Reset() {
 
             const json = await response.json();
             console.log(json);
-            //if login successfull got redirect to home page
+            navigate("/login");
+
         } catch (error) {
             console.error(error.message);
         }

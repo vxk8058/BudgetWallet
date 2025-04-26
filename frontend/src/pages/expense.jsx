@@ -65,7 +65,7 @@ export default function ExpensePage() {
     const entryToDelete = entries[indexToRemove];
   
     // Remove from frontend state
-    //setEntries(entries.filter((_, index) => index !== indexToRemove));
+    setEntries(entries.filter((_, index) => index !== indexToRemove));
 
     fetch(`http://localhost:8080/api/expense/${entryToDelete.id}`, {
       method: 'DELETE',

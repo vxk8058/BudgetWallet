@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";//react hook
 import Link from '@mui/material/Link';
-import { useNavigate } from 'react-router-dom'; // Import this for navigation
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -19,14 +19,16 @@ export default function Login() {
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json" // Add this header for JSON data
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(loginInfo),
             });
 
             if (!response.ok) {
+                console.error(`Error: Response status ${response.status}`);
                 throw new Error(`Response status: ${response.status}`);
             }
+
 
             const json = await response.json();
             console.log(json);
