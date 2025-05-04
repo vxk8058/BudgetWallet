@@ -9,13 +9,23 @@ public class ExpenseEntry {
 
 
     public ExpenseEntry(int amount, String category, String date) {
-        if (!expense_categories.contains(category)) {
-            throw new IllegalArgumentException("Invalid expense category: " + category);
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Expense amount must be greater than 0. Given: " + amount);
+        }
+
+        if (category == null || !expense_categories.contains(category)) {
+            throw new IllegalArgumentException("Invalid expense category: " + category +
+                    ". Valid categories are: " + expense_categories);
+        }
+
+        if (date == null || date.isEmpty()) {
+            throw new IllegalArgumentException("Date cannot be null or empty.");
         }
 
         InputValidator validator = new InputValidator();
         if (!validator.validateDate(date)) {
-            throw new IllegalArgumentException("Invalid date format: " + date + ". Expected MM-DD-YYYY");
+            throw new IllegalArgumentException("Invalid date format: " + date +
+                    ". Expected format is YYYY-MM-DD.");
         }
 
         this.amount = amount;

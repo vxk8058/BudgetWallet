@@ -8,6 +8,8 @@ export default function IncomePage() {
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
   const [entries, setEntries] = useState([]);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     // Fetch income entries from Java backend on component mount
     fetch('http://localhost:8080/api/income')
@@ -20,9 +22,11 @@ export default function IncomePage() {
       .then(data => {
         // Update local state with entries from backend
         setEntries(data);
+        setError(null);
       })
       .catch(error => {
         console.error('Error loading income entries:', error);
+        setError('Failed to load income entries. Please try again later.');
       });
   }, []);
 
@@ -50,9 +54,11 @@ export default function IncomePage() {
         })
         .then((data) => {
           console.log('Income saved:', data);
+          setError(null);
         })
         .catch((error) => {
           console.error('Error saving income:', error);
+          setError('Failed to submit income. Please check your input or try again.');
         });
     }
   };
@@ -71,9 +77,11 @@ export default function IncomePage() {
           throw new Error('Failed to delete income entry');
         }
         console.log('Income entry deleted');
+        setError(null);
       })
       .catch((error) => {
         console.error('Error deleting income entry:', error);
+        setError('Failed to delete income. Please check your input or try again.');
       });
   };
   
@@ -245,21 +253,21 @@ export default function IncomePage() {
       </div>
       
       {/* Main Content Area */}
-      <div style={{ 
-        position: 'absolute', 
-        top: '150px', 
-        left: '250px', 
-        width: '750px',
-        height: '500px',
-        backgroundColor: '#FFFFFF',
-        borderRadius: '45px',
-        boxShadow: '0px 4px 4px rgba(0,0,0,0.25)',
-        padding: '20px',
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
+      <div style={{
+          position: 'absolute',
+          top: '150px',
+          left: '250px',
+          width: '750px',
+          height: '500px',
+          backgroundColor: '#FFFFFF',
+          borderRadius: '45px',
+          boxShadow: '0px 4px 4px rgba(0,0,0,0.25)',
+          padding: '20px',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
 
-        
+
         {/* Form Area */}
         <div style={{ 
           backgroundColor: '#D9D9D9', 

@@ -8,6 +8,7 @@ export default function InvestmentPage() {
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
   const [entries, setEntries] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
       // Fetch investment entries from Java backend on component mount
@@ -22,8 +23,8 @@ export default function InvestmentPage() {
           // Update local state with entries from backend
           setEntries(data);
         })
-        .catch(error => {
-          console.error('Error loading investment entries:', error);
+          .catch(error => {
+            console.error('Error loading expense entries:', error);
         });
   }, []);
 
@@ -54,6 +55,7 @@ export default function InvestmentPage() {
         })
         .catch((error) => {
           console.error('Error saving investment:', error);
+
         });
     }
   };
@@ -76,6 +78,7 @@ export default function InvestmentPage() {
       })
       .catch((error) => {
         console.error('Error deleting investment entry:', error);
+
       });
 
   };

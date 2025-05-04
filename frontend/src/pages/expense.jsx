@@ -8,7 +8,8 @@ export default function ExpensePage() {
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
   const [entries, setEntries] = useState([]);
-  
+  const [error, setError] = useState('');
+
   useEffect(() => {
 
     // Fetch expense entries from Java backend on component mount
@@ -25,6 +26,7 @@ export default function ExpensePage() {
       })
       .catch(error => {
         console.error('Error loading expense entries:', error);
+
       });
 
   }, []);
@@ -54,9 +56,10 @@ export default function ExpensePage() {
         .then((data) => {
           console.log('Expense saved:', data);
         })
-        .catch((error) => {
-          console.error('Error saving expense:', error);
+        .catch(error => {
+          console.error('Error submitting expense:', error);
         });
+
 
     }
   };
@@ -76,10 +79,9 @@ export default function ExpensePage() {
         }
         console.log('Expense entry deleted');
       })
-      .catch((error) => {
-        console.error('Error deleting expense entry:', error);
+      .catch(error => {
+        console.error('Error deleting expense:', error);
       });
-
   };
   
   return (

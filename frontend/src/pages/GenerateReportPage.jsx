@@ -17,10 +17,10 @@ export default function GenerateReportPage() {
 
         setReportData(`Financial Report
 Start Date: ${startMonth}
-    Total Income: $5,000
-    Total Savings: $1,200
-    Total Investment: $800
-    Total Expenses: $3,000
+    Total Income: $100
+    Total Savings: $200
+    Total Investment: $2,000
+    Total Expenses: $2,000
 End Date: ${endMonth}`);
     };
 

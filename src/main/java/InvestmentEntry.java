@@ -6,9 +6,9 @@ public class InvestmentEntry {
 
     private String name;
     private String category;
-    private int currentValue;
+    private int amount;
 
-    public InvestmentEntry(String name, String category, int currentValue) {
+    public InvestmentEntry(String name, String category, int amount) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Investment name cannot be empty");
         }
@@ -17,13 +17,13 @@ public class InvestmentEntry {
             throw new IllegalArgumentException("Invalid investment category: " + category);
         }
 
-        if (currentValue < 0) {
+        if (amount < 0) {
             throw new IllegalArgumentException("Investment value must be positive");
         }
 
         this.name = name;
         this.category = category;
-        this.currentValue = currentValue;
+        this.amount = amount;
     }
 
     public String getName() {
@@ -34,11 +34,14 @@ public class InvestmentEntry {
         return category;
     }
 
-    public int getCurrentValue() {
-        return currentValue;
+    public int getAmount() {
+        return amount;
     }
 
     public void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Investment name cannot be empty");
+        }
         this.name = name;
     }
 
@@ -49,7 +52,11 @@ public class InvestmentEntry {
         this.category = category;
     }
 
-    public void setCurrentValue(int currentValue) {
-        this.currentValue = currentValue;
+    public void setAmount(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Investment value must be positive");
+        }
+        this.amount = amount;
     }
+
 }

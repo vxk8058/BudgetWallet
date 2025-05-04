@@ -49,4 +49,6 @@ public class IncomeEntry {
     public void setDate(String date) {
         this.date = date;
     }
+
+
 }

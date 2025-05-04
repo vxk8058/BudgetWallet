@@ -8,7 +8,8 @@ export default function SavingsPage() {
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
   const [entries, setEntries] = useState([]);
-  
+  const [error, setError] = useState('');
+
   useEffect(() => {
     // Fetch savings entries from Java backend on component mount
     fetch('http://localhost:8080/api/savings')
@@ -29,6 +30,7 @@ export default function SavingsPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError('');
     if (amount && category && date) {
       const newEntry = { amount, category, date };
       setEntries([...entries, newEntry]);
@@ -53,6 +55,7 @@ export default function SavingsPage() {
           console.log('Savings saved:', data);
         })
         .catch((error) => {
+          setError(error.message);
           console.error('Error saving savings:', error);
         });
     }
@@ -261,7 +264,10 @@ export default function SavingsPage() {
         flexDirection: 'column'
       }}>
 
-        
+        {/* Error Message */}
+        {error && <div style={{ color: 'red', marginBottom: '20px' }}>{error}</div>} {/* Error display */}
+
+
         {/* Form Area */}
         <div style={{ 
           backgroundColor: '#D9D9D9', 

@@ -13,37 +13,39 @@ function AccountPage() {
     // useEffect to fetch user data when component mounts
     useEffect(() => {
         // Comment: This would fetch user data from Spring Boot backend
+        /*
         const fetchUserData = async () => {
-            try {
-                const response = await fetch('http://localhost:8080/api/user/profile', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
+          try {
+            const response = await fetch('http://localhost:8080/api/user/profile', {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+              }
+            });
 
-                if (response.ok) {
-                    const userData = await response.json();
-                    setFirstName(userData.firstName);
-                    setLastName(userData.lastName);
-                    setEmail(userData.email);
-                    if (userData.profilePicture) {
-                        setPreviewImage(`data:image/jpeg;base64,${userData.profilePicture}`);
-                    }
-                } else {
-                  console.error('Failed to fetch user data');
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
+            if (response.ok) {
+              const userData = await response.json();
+              setFirstName(userData.firstName);
+              setLastName(userData.lastName);
+              setEmail(userData.email);
+              if (userData.profilePicture) {
+                setPreviewImage(`data:image/jpeg;base64,${userData.profilePicture}`);
+              }
+            } else {
+              console.error('Failed to fetch user data');
             }
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+          }
         };
-        fetchUserData();
 
-        // For demo purposes - remove this when actual fetch is implemented
-        // setFirstName('John');
-        // setLastName('Doe');
-        // setEmail('john.doe@example.com');
+        fetchUserData();
+        */
+
+        setFirstName('John');
+        setLastName('Doe');
+        setEmail('johndoe123@gmail.com');
     }, []);
 
     const handleProfilePictureChange = (e) => {
@@ -62,40 +64,42 @@ function AccountPage() {
         e.preventDefault();
 
         // Comment: This would save user data to Spring Boot backend
+        /*
         const saveUserData = async () => {
-            try {
-                const formData = new FormData();
-                formData.append('firstName', firstName);
-                formData.append('lastName', lastName);
-                formData.append('email', email);
-                if (profilePicture) {
-                    formData.append('profilePicture', profilePicture);
+          try {
+            const formData = new FormData();
+            formData.append('firstName', firstName);
+            formData.append('lastName', lastName);
+            formData.append('email', email);
+            if (profilePicture) {
+              formData.append('profilePicture', profilePicture);
             }
 
             const response = await fetch('http://localhost:8080/api/user/profile', {
-                  method: 'PUT',
-                  headers: {
-                      'Authorization': `Bearer ${localStorage.getItem('token')}`
-                  },
-                  body: formData
+              method: 'PUT',
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+              },
+              body: formData
             });
 
-                if (response.ok) {
-                    alert('Profile updated successfully');
-                } else {
-                    alert('Failed to update profile');
-                }
-            } catch (error) {
-                console.error('Error updating profile:', error);
-                alert('Error updating profile');
+            if (response.ok) {
+              alert('Profile updated successfully');
+            } else {
+              alert('Failed to update profile');
             }
+          } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('Error updating profile');
+          }
         };
 
         saveUserData();
+        */
 
         // For demo purposes
-        // console.log('Submitted:', { firstName, lastName, email, profilePicture });
-        // alert('Profile updated successfully');
+        console.log('Submitted:', { firstName, lastName, email, profilePicture });
+        alert('Profile updated successfully');
     };
     return (
         <div style={{ backgroundColor: 'rgba(138,147,180,1)', minHeight: '100vh', position: 'relative' }}>

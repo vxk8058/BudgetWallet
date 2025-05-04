@@ -1,5 +1,6 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 public class InputValidator {
 
@@ -11,7 +12,7 @@ public class InputValidator {
         return category != null && !category.isEmpty(); // Non-empty category
     }
 
-    public static boolean validateDate(String date) {
+    /*public static boolean validateDate(String date) {
         if (date == null || date.isEmpty()) return false;
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
@@ -23,5 +24,11 @@ public class InputValidator {
         } catch (ParseException e) {
             return false;
         }
+    }*/
+
+    private static final Pattern DATE_PATTERN = Pattern.compile("^\\d{2}-\\d{2}-\\d{4}$");
+
+    public boolean validateDate(String date) {
+        return DATE_PATTERN.matcher(date).matches();
     }
 }
