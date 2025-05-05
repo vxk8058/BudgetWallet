@@ -97,7 +97,7 @@ public class User {
         for (InvestmentEntry currentEntry : investmentEntries) {
             if (currentEntry.getName().equals(entry.getName())
                     && currentEntry.getCategory().equals(entry.getCategory())
-                    && currentEntry.getCurrentValue() == entry.getCurrentValue()) {
+                    && currentEntry.getAmount() == entry.getAmount()) {
                 investmentEntries.remove(currentEntry);
                 System.out.println("Investment entry deleted for " + email);
                 removed = true;
